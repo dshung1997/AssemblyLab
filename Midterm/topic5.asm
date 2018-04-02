@@ -13,7 +13,7 @@
 	# la $v0, A	# store address of A into $v0
 	# lw $t6, 0($v0)	# store the value of A into $t6
 	
-	add $s0, $sp, $zero	# store the starting address of stack
+	add $s7, $sp, $zero	# store the starting address of stack
 	li $t1, -1		# status -1
 	li $t2, -2		# status 2
 	
@@ -76,9 +76,9 @@ calculateBinary:
 				
 # finish when A = 0		
 loopPrintBinary: 
-	bne $sp, $s0, printBinary	# if the current pointer of the stack is not the starting address then go to Print
+	bne $sp, $s7, printBinary	# if the current pointer of the stack is not the starting address then go to Print
 	nop
-	beq $sp, $s0, initializeHexa	# otherwise, go to End
+	beq $sp, $s7, initializeHexa	# otherwise, go to Hexa section
 	nop
 	
 # start priting out each bit
@@ -95,17 +95,24 @@ printBinary:
 
 initializeHexa:
 	add $t6, $t7, $zero	# recover the integer read from keyboard
-	add $s0, $sp, $zero	# store the starting address of stack
+	add $s7, $sp, $zero	# store the starting address of stack
 	
-	li $v0, 11 	
+	addi $s0, $0, 10	# store 10 in $s0
+	addi $s1, $0, 11	# store 11 in $s1
+	addi $s2, $0, 12	# store 12 in $s2
+	addi $s3, $0, 13	# store 13 in $s3
+	addi $s4, $0, 14	# store 14 in $s4
+	addi $s5, $0, 15	# store 15 in $s5
+	
+	li $v0, 11 		# print a new line
 	addi $a0, $0, 0xA
 	syscall	
 	
-	li $v0, 4
+	li $v0, 4		# print Hexa :...
 	la $a0, Hexadecimal
 	syscall
 	
-	beq $zero, $zero, conditionHexa
+	beq $zero, $zero, conditionHexa	# jump to condition of Hexa section
 	nop
 	
 # condition of loop : check whether or not the number is zero
@@ -117,28 +124,55 @@ conditionHexa:
 	
 # start	loop of calculating each bit of the number
 calculateHexa:	
-	andi $a0, $t6, 0xf	# get the last bit of the number
+	andi $a0, $t6, 0xf	# get the last 4 bits of the number
 	sw   $a0, 0($sp)	# store it into the stack
 	addi $sp, $sp, 4	# adjust the stack pointer
 	beq  $zero, $zero, conditionHexa	# go back to the condition
-	srl  $t6, $t6, 4	# shift right the number one bit
+	srl  $t6, $t6, 4	# shift right the number 4 bits
 				
 # finish when A = 0		
 loopPrintHexa: 
-	bne $sp, $s0, printHexa	# if the current pointer of the stack is not the starting address then go to Print
+	bne $sp, $s7, printHexa	# if the current pointer of the stack is not the starting address then go to Print
 	nop
-	beq $sp, $s0, endProgram	# otherwise, go to End
+	beq $sp, $s7, endProgram	# otherwise, go to End
 	nop
 	
 # start priting out each bit
 printHexa:	
 	addi $sp, $sp, -4		# adjust the pointer of the stack
 	lw   $a0, 0($sp)		# load the value of the current pointer
-	li $v0, 1			
+	slt $t3, $a0, $s0		# t3 = 0 if $a0 (the current number) < $s0 (10) 
+	beq $t3, $0, convert10		# jump to convert10 if t3 == 0 (the current number >= 10)
+	li $v0, 1			# print a decimal integer
 	beq $zero, $zero, loopPrintHexa # go back to the condition of the printing loop
-	syscall				# print out the bit
+	syscall				# print out the number
 
 
+#--------------------------------------------------------------------------------------------------------------------
+
+# function to convert 10 to A, 11 to B, ...
+convert10:
+	li $v0, 11			# print a character
+	
+	add $a1, $a0, $0		# store the current number in $a1 - because we use $a0 below
+	
+	beq $a1, $s0, print1x		# if a1 = 10, jump to print1x
+	li $a0, 'A'			# set a0 to 'A'
+	beq $a1, $s1, print1x		# if a1 = 11,...
+	li $a0, 'B'
+	beq $a1, $s2, print1x		# if a1 = 12,...
+	li $a0, 'C'
+	beq $a1, $s3, print1x		# if a1 = 13,...
+	li $a0, 'D'
+	beq $a1, $s4, print1x		# if a1 = 14,...
+	li $a0, 'E'
+	beq $a1, $s5, print1x		# if a1 = 15,...
+	li $a0, 'F'
+	
+print1x:
+	beq $zero, $zero, loopPrintHexa	# go back to the loop print hexa
+	syscall				# at the same time, print out the character
+	
 endProgram:
 
 
