@@ -1,6 +1,6 @@
 .data
 	# A: .word 9999999
-	Message: .asciiz "Enter an integer :"
+	Message: .asciiz "Enter a non-negative integer :"
 	Alert: .asciiz "Data cannot be parsed !"
        Decimal: .asciiz "Decimal     : "
 	Binary: .asciiz "Binary      : "
@@ -25,6 +25,8 @@
 	add $t6, $a0, $zero	# store value of the integer read in $t6 
 	add $t7, $t6, $zero	# and $t7
 	
+	
+	
 	beq $a1, $zero, initializeBinary	# if the status is 0 then t6 = integer read and jump to condition of loop
 	nop
 	beq $a1, $t1, alert		# if the status is -1 then go to Alert
@@ -40,7 +42,56 @@ alert:
 	beq $zero, $zero, endProgram	# go to End
 	syscall				# display dialog of alert
 	
+	
+zeroinput:
+	li $v0, 4
+	la $a0, Decimal
+	syscall
+	
+	li $v0, 1
+	li $a0, 0
+	syscall
+	
+	li $v0, 11 		# print a new line
+	addi $a0, $0, 0xA
+	syscall	
+	
+	li $v0, 4
+	la $a0, Binary
+	syscall
+	
+	li $v0, 1
+	li $a0, 0
+	syscall
+	
+	li $v0, 11 		# print a new line
+	addi $a0, $0, 0xA
+	syscall	
+	
+	li $v0, 4
+	la $a0, Hexadecimal
+	syscall
+	
+	li $v0, 1
+	li $a0, 0
+	syscall
+	
+	li $v0, 11 		# print a new line
+	addi $a0, $0, 0xA
+	syscall	
+	
+	beq $0, $0, endProgram
+	
 initializeBinary:
+
+	beq $t6, $0, zeroinput
+	nop
+	
+	slt $t9, $t6, $0
+	addi $t8, $0, 1
+	beq $t9, $t8, alert
+	nop
+
 	li $v0, 4
 	la $a0, Decimal
 	syscall
@@ -58,6 +109,7 @@ initializeBinary:
 	syscall
 	
 	beq $0, $0, conditionBinary
+	nop
 		
 # condition of loop : check whether or not the number is zero
 conditionBinary:
@@ -174,6 +226,10 @@ print1x:
 	syscall				# at the same time, print out the character
 	
 endProgram:
+	# j endProgram
+	# nop
+	 li $v0, 10
+	 syscall
 
 
 	

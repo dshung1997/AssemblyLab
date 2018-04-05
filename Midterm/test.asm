@@ -2,11 +2,7 @@
 	A: .word 100
 	
 .text
-	la $s0, A
-	lw $s1, 0($s0)
-	
-	li $a0, 0xf
-	
-	and $a1, $s1, $a0
-	
+li $v0, 1 # service 1 is print integer
+li $a0, 0 # the interger to be printed is 0x307
+syscall
 	
