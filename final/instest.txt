@@ -1,0 +1,44 @@
+add $1, $2, $3    ,
+subq $1, $2, $3    ,
+       ,subq $1, $2, $3    ,
+        , subq $1, $2, $3    !
+mfc0 $2, $3
+mfc0 $2, $3, 4
+mfc0 $2, $3, $4
+addiu $1, $2, 50
+addiu $1, $2, 50     a
+addiu     $1,     $2, 50     a
+addiu   1  $1,     $2, 50     a
+mfhi    $2,
+mfhi    $2,    $4
+srl $2, $10, 4
+
+  srl  , $2, $10, 40
+    srl  , $2, ,$10, 40
+sb $1, 40($5)
+
+sb $1,       40($5)
+
+sb $1,     ,  40($5)
+
+sb $1,     ,  40($5)    ,
+sb , $1,     ,  40($5)    ,
+
+sb $1,       4a($5)
+sb $1,       42($b)
+
+j shds
+j sdasd, ajdasid
+j asds aidsid,
+
+jal shds
+jal sdasd, ajdasid
+jal asds aidsid,
+
+jr dasd
+jr 3434
+jr $4
+
+jr $4   , weuwe
+jr $4   ,
+      jr       ,$4   ,

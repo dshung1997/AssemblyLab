@@ -1,0 +1,60 @@
+add $1, $2, $3
+
+từ đầu đến dấu cách thứ nhất -> check tên lệnh -> nếu tên lệnh có trong mảng -> next, ko thì thôi dừng
+loop để bỏ các dấu cách ở giữa, dừng khi gặp 1 kí tự bất kì, tách đến khi gặp dấu phẩy hoặc dấu cách
+-----------
+Xét param 1 : 
+
+-----------
+
+Nếu là dấu phẩy thì sẽ dừng khi gặp kí tự nào khác dấu cách
+Nếu là dấu cách thì sẽ dừng khi gặp kí tự nào khác dấu cách -> nếu khác dấu phảy thì FALSE, nếu là dấu phẩy thì 
+
+-----------
+Xét param 2 :
+
+------------
+hàm lấy từng kí tự
+$s0 lưu địa chỉ hiện tại và +4 mỗi khi $s1 về 0
+$s1 lưu từ lấy được từ địa chỉ $s0
+$s2 get 2 digit cuối của $s1 (shift) => $s2 là kí tự mình cần dùng
+
+-----------
+
+Dùng $t6, $t7, $t8, $t9 làm các tham số đầu vào cho các hàm con
+
+-----------
+CHECK REGISTER
+Param: $ ,
+Execute: tìm kiếm xem 
+
+------------------------------------------------------------------------
+Khuon dang lenh:
+Tên lệnh: 1 dãy kí tự có trong từ điển
+
+
+
+---------------
+Tên lệnh:
+gặp SPACE -> bỏ qua
+gặp kí tự -> bắt đầu lưu cho đến khi gặp SPACE hoặc là END
+trước khi gặp dấu cách mà gặp cái ko phải kí tự thì báo lỗi luôn
+
+---------------
+Param 1:
+gặp SPACE -> bỏ qua
+gặp kí tự -> bắt đầu lưu 
+{
+    gặp kí tự -> lưu
+    gặp dấu cách -> 
+    {
+        gặp COMMA -> tiếp
+        gặp kí tự khác COMMA -> báo lỗi
+    }
+}
+nếu chưa gặp COMMA mà gặp phải SPACE thì báo lỗi luôn
+---------------
+bỏ qua COMMA
+
+
+

@@ -1,0 +1,77 @@
+# xxx abc d
+# xxx : instruction name
+# a   : type of param1
+# b   : type of param2
+# c   : type of param3
+# d   : how many cycles
+
+# type : 0 - none | 1 - register | 2 - immediate | 3 - immediate (register) | 4 - label
+
+"add 111 1",
+"sub 111 1",
+"addi 112 1",
+"addu 111 1",
+"subu 111 1",
+"addiu 112 1",
+"mfc0 110 1",
+"mult 110 1",
+"multu 110 1",
+"div 110 1",
+"divu 110 1",
+"mfhi 100 1",
+"mflo 100 1",
+"and 111 1",
+"or 111 1",
+"andi 112 1",
+"ori 112 1",
+"sll 112 1",
+"srl 112 1",
+"lw 130 1",
+"sw 130 1",
+"lbu 130 1",
+"sb 130 1",
+"lui 120 1",
+"beq 112 2",
+"bne 112 2",
+"slt 111 1",
+"slti 112 1",
+"sltu 111 1",
+"sltiu 112 1",
+"j 400 2",
+"jal 400 2",
+"jr 100 2"
+
+
+1
+1
+2
+1
+1
+2
+0
+0
+0
+0
+0
+0
+0
+1
+1
+2
+2
+2
+2
+0
+0
+0
+0
+0
+2
+2
+1
+2
+1
+2
+0
+0
+0

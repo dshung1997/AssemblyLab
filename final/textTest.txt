@@ -1,0 +1,9 @@
+    add     $11,    ,  $t2,    $t3                   ,
+   add     $t1,      $t2,    $t3
+    add     $t1,      $t2,    $t3    
+    add$     $t1,      $t2,    $t3    
+    add     $(t)1,      $t2,    $t3  
+    add     $(t)1,    ,  $t2,    $t3  
+    add     $(t)1,    ,  $t2,    $t3,
+add$$(t)1,    ,  $t2,    $t3,
+   add     $t1,      $$$t2,    $t3
